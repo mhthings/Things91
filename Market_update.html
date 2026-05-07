@@ -453,7 +453,7 @@
   </div>
 
   <!-- SEARCH -->
-  <div class="mu-divider anim-3"><span>Neighborhood Search</span></div>
+ <!-- delete before to renable ********  <div class="mu-divider anim-3"><span>Neighborhood Search</span></div>
   <div class="mu-search anim-3">
     <div class="mu-field">
       <label>Borough</label>
@@ -476,10 +476,12 @@
     <button class="mu-btn-outline" onclick="resetView()">Clear</button>
   </div>
 
+
+
   <!-- WELCOME -->
-  <div class="mu-welcome" id="welcomeState">
-    <h3>Select a Neighborhood</h3>
-    <p>Choose any borough and neighborhood above to pull rental comps, sales comps, price ranges, and the 2026 market forecast.</p>
+   <div class="mu-welcome" id="welcomeState">
+    <h3>For Detailed Neighborhood Insights, Please get in touch!</h3>
+    <p>We can provide you with detailed rental comps, sales comps, price ranges, and the 2026 market forecast.</p>
     <div class="mu-hints">
       <span class="mu-hint">125+ Neighborhoods</span>
       <span class="mu-hint">All NYC Boroughs</span>
@@ -487,20 +489,33 @@
       <span class="mu-hint">Sales Comps</span>
       <span class="mu-hint">Price Ranges</span>
       <span class="mu-hint">2026 Forecasts</span>
+
+       <!-- CTA delete from here if you want the old style -->
+  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:48px;padding-top:40px;border-top:1px solid var(--border);">
+    <a class="btn btn-gold" href="contact.html">Contact Hawk ↗</a>
+    <a class="btn btn-outline" href="listings.html">View Live Listings</a>
+  </div>
+
+ <!-- Sources delete from here if you want the old style -->
+    <div class="mu-sources">
+      Data sources: StreetEasy · PropertyShark · Douglas Elliman · RentCafe (Yardi Matrix) · Freddie Mac · Baruch College CUNY · PIX11 · Corcoran · Brown Harris Stevens<br>
+      <span style="opacity:.55;">Updated May 2026 · Monjurul Haque · Associate Broker · Gama NYC · 9726 3rd Ave, Brooklyn · (347) 968-8550 · mhaquerealestate@gmail.com</span>
+    </div>
+
     </div>
   </div>
 
   <!-- LOADING -->
-  <div class="mu-loading" id="loadingState">
+ <!-- delete before to renable ******** <div class="mu-loading" id="loadingState">
     <div class="mu-spinner"></div>
     <p>Pulling market data...</p>
   </div>
 
   <!-- DASHBOARD -->
-  <div class="mu-dashboard" id="dashboard">
+   <!-- delete before to renable ********  <div class="mu-dashboard" id="dashboard">
 
     <!-- Header -->
-    <div class="mu-dash-head">
+    <!-- delete before to renable ********  <div class="mu-dash-head">
       <div>
         <div class="mu-dash-hood" id="dashHood">—</div>
         <div class="mu-dash-borough" id="dashBorough">—</div>
@@ -513,11 +528,11 @@
     </div>
 
     <!-- Stat cards -->
-    <div class="mu-divider"><span>Rental &amp; Sales Averages</span></div>
+    <!-- delete before to renable ********  <div class="mu-divider"><span>Rental &amp; Sales Averages</span></div>
     <div class="mu-stat-grid" id="statGrid"></div>
 
     <!-- Comp tables -->
-    <div class="mu-two-col">
+    <!-- delete before to renable ********  <div class="mu-two-col">
       <div class="mu-panel">
         <div class="mu-panel-head">
           <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -539,7 +554,7 @@
     </div>
 
     <!-- Range bars -->
-    <div class="mu-panel" style="margin-bottom:32px;">
+    <!-- delete before to renable ********  <div class="mu-panel" style="margin-bottom:32px;">
       <div class="mu-panel-head">
         <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Rental Price Ranges · Market Context
@@ -548,11 +563,11 @@
     </div>
 
     <!-- Forecast -->
-    <div class="mu-divider"><span>2026 Market Forecast</span></div>
+    <!-- delete before to renable ********  <div class="mu-divider"><span>2026 Market Forecast</span></div>
     <div class="mu-forecast" id="forecastPanel"></div>
 
     <!-- Sources -->
-    <div class="mu-sources">
+   <!-- delete before to renable ******** <div class="mu-sources">
       Data sources: StreetEasy · PropertyShark · Douglas Elliman · RentCafe (Yardi Matrix) · Freddie Mac · Baruch College CUNY · PIX11 · Corcoran · Brown Harris Stevens<br>
       <span style="opacity:.55;">Updated May 2026 · Monjurul Haque · Associate Broker · Gama NYC · 9726 3rd Ave, Brooklyn · (347) 968-8550 · mhaquerealestate@gmail.com</span>
     </div>
@@ -560,7 +575,7 @@
   </div><!-- /dashboard -->
 
   <!-- CTA -->
-  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:48px;padding-top:40px;border-top:1px solid var(--border);">
+  <!-- delete before to renable ******** <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:48px;padding-top:40px;border-top:1px solid var(--border);">
     <a class="btn btn-gold" href="contact.html">Work with Hawk ↗</a>
     <a class="btn btn-outline" href="listings.html">View Live Listings</a>
   </div>
@@ -587,7 +602,9 @@
   </div>
 </footer>
 
-<script>
+
+
+<!-- delete before to renable ******** <script>
 function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
 function closeMenu(){document.getElementById('navMobile').classList.remove('open');}
 function resetView(){
