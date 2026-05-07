@@ -82,22 +82,29 @@
   </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">HAWK</a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-    <a href="listings.html" class="active">Listings</a>
+    <a href="listings.html">Listings</a>
+    <a href="Market_update.html" class="active">Market Data</a>
     <a href="contact.html">Contact</a>
   </div>
-  <div class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></div>
+  <div class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 <div class="nav-mobile" id="navMobile">
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="about.html" onclick="closeMenu()">About</a>
   <a href="listings.html" onclick="closeMenu()">Listings</a>
+  <a href="Market_update.html" onclick="closeMenu()">Market Data</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
+
 <div class="hero-strip"></div>
 <main>
   <p class="page-eyebrow anim-1">NYC Properties</p>
@@ -134,7 +141,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Open Live MLS Search
       </a>
-      <span class="launch-note"><strong>Opens full MLS</strong> · Search filters · No sign-up needed</span>
+      <span class="launch-note"><strong>Opens full MLS</strong> · All filters work · No sign-up needed</span>
     </div>
 
     <div class="borough-row">
