@@ -203,14 +203,22 @@
         <div class="ig-header-text"><h3>Instagram Post</h3><p>3 caption versions — tap, copy, post</p></div>
       </div>
       <div class="ig-post-preview">
-        <div class="ig-post-image"><div class="ig-post-image-inner" id="igPostImageInner"></div></div>
+        <div class="ig-post-image" id="igPostImageWrap"><div class="ig-post-image-inner" id="igPostImageInner"></div></div>
+        <div id="igRenderedImgWrap" style="display:none;position:relative;">
+          <img id="igRenderedImg" style="width:100%;display:block;border-radius:0;" alt="Instagram post preview"/>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);opacity:0;transition:opacity .2s;pointer-events:none;" id="igImgOverlay">
+            <span style="color:#fff;font-size:13px;font-weight:600;letter-spacing:.05em;background:rgba(0,0,0,0.6);padding:8px 16px;border-radius:20px;">📥 Hold to save</span>
+          </div>
+        </div>
       </div>
+      <div id="igRenderHint" style="display:none;font-size:11px;color:var(--muted);text-align:center;margin:-8px 0 10px;letter-spacing:.03em;">📱 Mobile: hold image → Save &nbsp;·&nbsp; 💻 Desktop: right-click → Save image</div>
       <div class="variant-selector" id="variantSelector"></div>
       <div class="caption-box"><div class="caption-label">📝 Caption</div><div class="caption-text" id="captionText"></div></div>
       <div class="action-row">
         <button class="copy-btn" onclick="copyCaption()">📋 Copy Caption</button>
         <button class="copy-btn" onclick="copyHashtags()">🏷️ Copy Hashtags</button>
         <button class="copy-btn" onclick="regenerateCaption()">🔄 Next Version</button>
+        <button class="copy-btn" id="savePreviewBtn" onclick="savePreviewImage()" style="display:none;">💾 Save Image</button>
       </div>
       <div class="export-section">
         <div class="export-label">⬇️ Export Post as Image</div>
@@ -496,6 +504,106 @@ function renderIG(n,d,b){
   capts.forEach((_,i)=>{sel.innerHTML+=`<button class="variant-btn ${i===0?'active':''}" onclick="selectVariant(this,${i})">Version ${i+1}</button>`;});
   renderCaption();
   document.getElementById('igPanel').classList.add('visible');
+  // Reset preview state while new image renders
+  document.getElementById('igRenderedImgWrap').style.display='none';
+  document.getElementById('igPostImageWrap').style.display='';
+  document.getElementById('igRenderHint').style.display='none';
+  document.getElementById('savePreviewBtn').style.display='none';
+  renderPreviewImage();
+}
+
+function renderPreviewImage(){
+  if(!cData||!cN)return;
+  const sale=fp(cData.sale.c||cData.sale.th||cData.sale.co||cData.sale.tf);
+  const W=1080,H=1080;
+  const previewHTML=`<div style="
+    width:${W}px;height:${H}px;
+    background:linear-gradient(145deg,#0A0A0A 0%,#111318 40%,#0A0A0A 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;font-family:'DM Sans',sans-serif;box-sizing:border-box;
+  ">
+    <div style="position:absolute;top:-120px;left:-120px;width:520px;height:520px;background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 65%);"></div>
+    <div style="position:absolute;bottom:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(74,144,217,0.07) 0%,transparent 65%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.035) 1px,transparent 1px);background-size:72px 72px;"></div>
+    <div style="position:absolute;top:32px;left:32px;width:48px;height:48px;border-top:1px solid rgba(201,168,76,0.35);border-left:1px solid rgba(201,168,76,0.35);"></div>
+    <div style="position:absolute;top:32px;right:32px;width:48px;height:48px;border-top:1px solid rgba(201,168,76,0.35);border-right:1px solid rgba(201,168,76,0.35);"></div>
+    <div style="position:absolute;bottom:32px;left:32px;width:48px;height:48px;border-bottom:1px solid rgba(201,168,76,0.35);border-left:1px solid rgba(201,168,76,0.35);"></div>
+    <div style="position:absolute;bottom:32px;right:32px;width:48px;height:48px;border-bottom:1px solid rgba(201,168,76,0.35);border-right:1px solid rgba(201,168,76,0.35);"></div>
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;width:100%;text-align:center;">
+      <div style="font-size:22px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,0.75);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>NYC REAL ESTATE<span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>
+      </div>
+      <div style="font-size:30px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,234,240,0.55);margin-bottom:20px;">📍 ${cN}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:88px;font-weight:900;color:#FFFFFF;line-height:1.05;margin-bottom:44px;">Market<br><span style="color:#C9A84C;font-style:italic;">Report</span></div>
+      <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin-bottom:44px;"></div>
+      <div style="display:flex;gap:48px;align-items:center;margin-bottom:52px;">
+        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${fp(cData.r.b1)}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">1BR Rent/Mo</div></div>
+        <div style="width:1px;height:56px;background:rgba(201,168,76,0.2);"></div>
+        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${sale}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Avg Sale</div></div>
+        <div style="width:1px;height:56px;background:rgba(201,168,76,0.2);"></div>
+        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${cData.fc.p}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">2026 Outlook</div></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;">
+        ${[['Studio',fp(cData.r.s)],['1BR',fp(cData.r.b1)],['2BR',fp(cData.r.b2)],['3BR',fp(cData.r.b3)]].map(([lbl,val])=>`
+          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.22);border-radius:6px;padding:14px 22px;text-align:center;">
+            <div style="font-size:15px;color:rgba(122,128,153,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">${lbl}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:28px;color:#E8EAF0;">${val}<span style="font-size:16px;color:rgba(201,168,76,0.6);margin-left:3px;">/mo</span></div>
+          </div>`).join('')}
+      </div>
+      <div style="border-top:1px solid rgba(201,168,76,0.15);padding-top:28px;width:100%;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#C9A84C;letter-spacing:2px;margin-bottom:6px;">MONJURUL HAQUE</div>
+        <div style="font-size:17px;color:rgba(122,128,153,0.8);letter-spacing:3px;text-transform:uppercase;">Associate Broker · Gama NYC · All 5 Boroughs</div>
+        <div style="font-size:17px;color:rgba(122,128,153,0.6);margin-top:4px;letter-spacing:1px;">(347) 968-8550 · 9726 3rd Ave, Brooklyn, NY</div>
+      </div>
+    </div>
+  </div>`;
+
+  const target=document.getElementById('exportTarget');
+  target.innerHTML=previewHTML;
+  target.style.cssText=`position:fixed;left:-${W+100}px;top:0;width:${W}px;height:${H}px;z-index:-1;`;
+
+  setTimeout(()=>{
+    html2canvas(target.firstElementChild,{
+      width:W,height:H,scale:2,useCORS:true,allowTaint:true,
+      backgroundColor:'#0A0A0A',logging:false,
+      onclone:(doc)=>{
+        const s=doc.createElement('link');s.rel='stylesheet';
+        s.href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap';
+        doc.head.appendChild(s);
+      }
+    }).then(canvas=>{
+      const dataUrl=canvas.toDataURL('image/png');
+      // Store for save button
+      window._igPreviewDataUrl=dataUrl;
+      const img=document.getElementById('igRenderedImg');
+      img.src=dataUrl;
+      // Swap: hide CSS div, show real img
+      document.getElementById('igPostImageWrap').style.display='none';
+      document.getElementById('igRenderedImgWrap').style.display='block';
+      document.getElementById('igRenderHint').style.display='block';
+      document.getElementById('savePreviewBtn').style.display='inline-flex';
+      target.innerHTML='';
+      target.style.cssText='position:fixed;left:-9999px;top:0;z-index:-1;';
+      // Show overlay hint briefly on mobile
+      const ov=document.getElementById('igImgOverlay');
+      ov.style.opacity='1';setTimeout(()=>ov.style.opacity='0',1800);
+    }).catch(()=>{
+      target.innerHTML='';
+      target.style.cssText='position:fixed;left:-9999px;top:0;z-index:-1;';
+    });
+  },150);
+}
+
+function savePreviewImage(){
+  if(!window._igPreviewDataUrl)return;
+  const b=document.getElementById('savePreviewBtn');
+  const slug=cN.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  const link=document.createElement('a');
+  link.download=`hawk-${slug}-square-may2026.png`;
+  link.href=window._igPreviewDataUrl;
+  link.click();
+  b.textContent='✓ Saved!';
+  setTimeout(()=>{b.innerHTML='💾 Save Image';},2000);
 }
 
 function getCaptions(n,d,b){
@@ -566,17 +674,17 @@ function exportImage(format){
       text-align:center;
     ">
       <!-- Eyebrow -->
-      <div style="font-size:${isPortrait?22:19}px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,0.75);margin-bottom:${isPortrait?32:24}px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:${isPortrait?16:14}px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,0.75);margin-bottom:${isPortrait?32:24}px;display:flex;align-items:center;gap:12px;">
         <span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>
         NYC REAL ESTATE
         <span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>
       </div>
 
       <!-- Neighborhood -->
-      <div style="font-size:${isPortrait?30:24}px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,234,240,0.55);margin-bottom:${isPortrait?20:14}px;">📍 ${cN}</div>
+      <div style="font-size:${isPortrait?22:18}px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,234,240,0.55);margin-bottom:${isPortrait?20:14}px;">📍 ${cN}</div>
 
       <!-- Headline -->
-      <div style="font-family:'Playfair Display',serif;font-size:${isPortrait?88:isLandscape?68:78}px;font-weight:900;color:#FFFFFF;line-height:1.05;margin-bottom:${isPortrait?44:32}px;">
+      <div style="font-family:'Playfair Display',serif;font-size:${isPortrait?72:isLandscape?56:64}px;font-weight:900;color:#FFFFFF;line-height:1.05;margin-bottom:${isPortrait?44:32}px;">
         Market<br><span style="color:#C9A84C;font-style:italic;">Report</span>
       </div>
 
@@ -586,18 +694,18 @@ function exportImage(format){
       <!-- Stats row -->
       <div style="display:flex;gap:${isPortrait?48:36}px;align-items:center;margin-bottom:${isPortrait?52:40}px;">
         <div style="text-align:center;">
-          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?48:40}px;font-weight:500;color:#C9A84C;line-height:1;">${fp(cData.r.b1)}</div>
-          <div style="font-size:${isPortrait?17:14}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">1BR Rent/Mo</div>
+          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?38:32}px;font-weight:500;color:#C9A84C;line-height:1;">${fp(cData.r.b1)}</div>
+          <div style="font-size:${isPortrait?13:11}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">1BR Rent/Mo</div>
         </div>
         <div style="width:1px;height:${isPortrait?56:44}px;background:rgba(201,168,76,0.2);"></div>
         <div style="text-align:center;">
-          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?48:40}px;font-weight:500;color:#C9A84C;line-height:1;">${sale}</div>
-          <div style="font-size:${isPortrait?17:14}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Avg Sale</div>
+          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?38:32}px;font-weight:500;color:#C9A84C;line-height:1;">${sale}</div>
+          <div style="font-size:${isPortrait?13:11}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Avg Sale</div>
         </div>
         <div style="width:1px;height:${isPortrait?56:44}px;background:rgba(201,168,76,0.2);"></div>
         <div style="text-align:center;">
-          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?48:40}px;font-weight:500;color:#C9A84C;line-height:1;">${cData.fc.p}</div>
-          <div style="font-size:${isPortrait?17:14}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">2026 Outlook</div>
+          <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?38:32}px;font-weight:500;color:#C9A84C;line-height:1;">${cData.fc.p}</div>
+          <div style="font-size:${isPortrait?13:11}px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">2026 Outlook</div>
         </div>
       </div>
 
@@ -605,24 +713,24 @@ function exportImage(format){
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:${isPortrait?48:36}px;">
         ${[['Studio',fp(cData.r.s)],['1BR',fp(cData.r.b1)],['2BR',fp(cData.r.b2)],['3BR',fp(cData.r.b3)]].map(([lbl,val])=>`
           <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.22);border-radius:6px;padding:${isPortrait?'14px 22px':'10px 18px'};text-align:center;">
-            <div style="font-size:${isPortrait?15:13}px;color:rgba(122,128,153,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">${lbl}</div>
-            <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?28:23}px;color:#E8EAF0;">${val}<span style="font-size:${isPortrait?16:13}px;color:rgba(201,168,76,0.6);margin-left:3px;">/mo</span></div>
+            <div style="font-size:${isPortrait?11:10}px;color:rgba(122,128,153,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">${lbl}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:${isPortrait?20:17}px;color:#E8EAF0;">${val}<span style="font-size:${isPortrait?12:10}px;color:rgba(201,168,76,0.6);margin-left:3px;">/mo</span></div>
           </div>
         `).join('')}
       </div>
 
       <!-- Branding -->
       <div style="border-top:1px solid rgba(201,168,76,0.15);padding-top:${isPortrait?28:20}px;width:100%;text-align:center;">
-        <div style="font-family:'Playfair Display',serif;font-size:${isPortrait?28:23}px;font-weight:700;color:#C9A84C;letter-spacing:2px;margin-bottom:6px;">MONJURUL HAQUE</div>
-        <div style="font-size:${isPortrait?17:14}px;color:rgba(122,128,153,0.8);letter-spacing:3px;text-transform:uppercase;">Associate Broker · Gama NYC · All 5 Boroughs</div>
-        <div style="font-size:${isPortrait?17:14}px;color:rgba(122,128,153,0.6);margin-top:4px;letter-spacing:1px;">(347) 968-8550 · 9726 3rd Ave, Brooklyn, NY</div>
+        <div style="font-family:'Playfair Display',serif;font-size:${isPortrait?22:18}px;font-weight:700;color:#C9A84C;letter-spacing:2px;margin-bottom:6px;">MONJURUL HAQUE</div>
+        <div style="font-size:${isPortrait?13:11}px;color:rgba(122,128,153,0.8);letter-spacing:3px;text-transform:uppercase;">Associate Broker · Gama NYC · All 5 Boroughs</div>
+        <div style="font-size:${isPortrait?13:11}px;color:rgba(122,128,153,0.6);margin-top:4px;letter-spacing:1px;">(347) 968-8550 · 9726 3rd Ave, Brooklyn, NY</div>
       </div>
     </div>
 
     ${isLandscape?`
     <!-- Landscape right panel with extra stats -->
     <div style="width:480px;height:100%;background:rgba(0,0,0,0.35);border-left:1px solid rgba(201,168,76,0.12);display:flex;flex-direction:column;justify-content:center;padding:60px 48px;flex-shrink:0;position:relative;z-index:2;">
-      <div style="font-size:15px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-bottom:28px;">Market Snapshot</div>
+      <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-bottom:28px;">Market Snapshot</div>
       ${[
         ['Studio Avg',fp(cData.r.s)+'/mo'],
         ['1BR Avg',fp(cData.r.b1)+'/mo'],
@@ -632,11 +740,11 @@ function exportImage(format){
         ['2026 Forecast',cData.fc.p+' appreciation'],
       ].map(([k,v])=>`
         <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
-          <span style="font-size:16px;color:rgba(122,128,153,0.9);letter-spacing:0.5px;">${k}</span>
-          <span style="font-family:'DM Mono',monospace;font-size:18px;color:#C9A84C;">${v}</span>
+          <span style="font-size:12px;color:rgba(122,128,153,0.9);letter-spacing:0.5px;">${k}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:14px;color:#C9A84C;">${v}</span>
         </div>
       `).join('')}
-      <div style="margin-top:28px;font-size:14px;color:rgba(122,128,153,0.5);line-height:1.6;">Data sourced: StreetEasy · PropertyShark<br>Douglas Elliman · RentCafe · May 2026</div>
+      <div style="margin-top:28px;font-size:11px;color:rgba(122,128,153,0.5);line-height:1.6;">Data sourced: StreetEasy · PropertyShark<br>Douglas Elliman · RentCafe · May 2026</div>
     </div>`:''}
   </div>`;
 
@@ -649,7 +757,7 @@ function exportImage(format){
     html2canvas(target.firstElementChild,{
       width:cfg.w,
       height:cfg.h,
-      scale:2,
+      scale:1,
       useCORS:true,
       allowTaint:true,
       backgroundColor:'#0A0A0A',
