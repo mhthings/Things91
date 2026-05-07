@@ -33,6 +33,13 @@
   </url>
 
   <url>
+    <loc>https://www.mhaquerealtor.com/Market_update.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.mhaquerealtor.com/privacy.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>yearly</changefreq>
