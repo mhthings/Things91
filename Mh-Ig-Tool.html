@@ -151,20 +151,20 @@
     <div class="divider"></div>
     <div class="section-label">📊 NYC Market Pulse — May 2026</div>
     <div class="quick-stats">
-      <div class="stat-row"><span class="stat-label">Manhattan Median Rent</span><span class="stat-value up">$4,720 ▲8.9%</span></div>
+      <div class="stat-row"><span class="stat-label">Manhattan Avg Rent (1BR)</span><span class="stat-value up">$5,131 ▲10.5%</span></div>
       <div class="stat-row"><span class="stat-label">Brooklyn Median Rent</span><span class="stat-value up">$3,850 ▲10.2%</span></div>
-      <div class="stat-row"><span class="stat-label">Queens Median Rent</span><span class="stat-value up">$3,200 ▲7.6%</span></div>
-      <div class="stat-row"><span class="stat-label">Bronx Median Rent</span><span class="stat-value up">$2,900 ▲14%</span></div>
-      <div class="stat-row"><span class="stat-label">Staten Island Median Rent</span><span class="stat-value up">$2,800 ▲29%</span></div>
-      <div class="stat-row"><span class="stat-label">NYC Median Sale Price</span><span class="stat-value neutral">$800K ▲4% YoY</span></div>
-      <div class="stat-row"><span class="stat-label">Brooklyn Median Sale</span><span class="stat-value up">$995K ▲0.5% QoQ</span></div>
-      <div class="stat-row"><span class="stat-label">Queens Median Sale</span><span class="stat-value up">$714K ▲4.1%</span></div>
-      <div class="stat-row"><span class="stat-label">Manhattan Condo Median</span><span class="stat-value up">$1.66M (Elliman Q4)</span></div>
-      <div class="stat-row"><span class="stat-label">Manhattan Co-op Median</span><span class="stat-value up">$860K–$1M ▲8%</span></div>
+      <div class="stat-row"><span class="stat-label">Queens Avg Rent</span><span class="stat-value up">$3,906 ▲33.8%</span></div>
+      <div class="stat-row"><span class="stat-label">Bronx Avg Rent (1BR)</span><span class="stat-value up">$2,731 ▲0.7%</span></div>
+      <div class="stat-row"><span class="stat-label">Staten Island Avg Rent (1BR)</span><span class="stat-value up">$1,900 ▲est.</span></div>
+      <div class="stat-row"><span class="stat-label">NYC Median Sale Price</span><span class="stat-value neutral">$865K ▲4.8% YoY</span></div>
+      <div class="stat-row"><span class="stat-label">Brooklyn Median Sale</span><span class="stat-value up">$997K ▲flat YoY</span></div>
+      <div class="stat-row"><span class="stat-label">Manhattan Median Sale</span><span class="stat-value up">$1.225M ▲5.2% YoY</span></div>
+      <div class="stat-row"><span class="stat-label">Manhattan Condo Median</span><span class="stat-value up">$1.75M Q1 2026</span></div>
+      <div class="stat-row"><span class="stat-label">Queens Multi-Family Median</span><span class="stat-value up">$1.155M ▲7% YoY</span></div>
       <div class="stat-row"><span class="stat-label">BK Price Per Sq Ft</span><span class="stat-value up">$1,019 ▲6.4%</span></div>
-      <div class="stat-row"><span class="stat-label">Mortgage Rate (30yr)</span><span class="stat-value down">6.30–6.51%</span></div>
-      <div class="stat-row"><span class="stat-label">Avg Days on Market NYC</span><span class="stat-value neutral">87 days</span></div>
-      <div class="stat-row"><span class="stat-label">NYC Sales Activity</span><span class="stat-value down">▼3% YoY (Q1 2026)</span></div>
+      <div class="stat-row"><span class="stat-label">Mortgage Rate (30yr)</span><span class="stat-value down">6.37% (Freddie Mac 5/7)</span></div>
+      <div class="stat-row"><span class="stat-label">BK Avg Days on Market</span><span class="stat-value neutral">87 days ▼11% YoY</span></div>
+      <div class="stat-row"><span class="stat-label">NYC Sales Contracts</span><span class="stat-value down">▼11–14% YoY (Q1 2026)</span></div>
     </div>
   </div>
 
@@ -203,22 +203,14 @@
         <div class="ig-header-text"><h3>Instagram Post</h3><p>3 caption versions — tap, copy, post</p></div>
       </div>
       <div class="ig-post-preview">
-        <div class="ig-post-image" id="igPostImageWrap"><div class="ig-post-image-inner" id="igPostImageInner"></div></div>
-        <div id="igRenderedImgWrap" style="display:none;position:relative;">
-          <img id="igRenderedImg" style="width:100%;display:block;border-radius:0;" alt="Instagram post preview"/>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);opacity:0;transition:opacity .2s;pointer-events:none;" id="igImgOverlay">
-            <span style="color:#fff;font-size:13px;font-weight:600;letter-spacing:.05em;background:rgba(0,0,0,0.6);padding:8px 16px;border-radius:20px;">📥 Hold to save</span>
-          </div>
-        </div>
+        <div class="ig-post-image"><div class="ig-post-image-inner" id="igPostImageInner"></div></div>
       </div>
-      <div id="igRenderHint" style="display:none;font-size:11px;color:var(--muted);text-align:center;margin:-8px 0 10px;letter-spacing:.03em;">📱 Mobile: hold image → Save &nbsp;·&nbsp; 💻 Desktop: right-click → Save image</div>
       <div class="variant-selector" id="variantSelector"></div>
       <div class="caption-box"><div class="caption-label">📝 Caption</div><div class="caption-text" id="captionText"></div></div>
       <div class="action-row">
         <button class="copy-btn" onclick="copyCaption()">📋 Copy Caption</button>
         <button class="copy-btn" onclick="copyHashtags()">🏷️ Copy Hashtags</button>
         <button class="copy-btn" onclick="regenerateCaption()">🔄 Next Version</button>
-        <button class="copy-btn" id="savePreviewBtn" onclick="savePreviewImage()" style="display:none;">💾 Save Image</button>
       </div>
       <div class="export-section">
         <div class="export-label">⬇️ Export Post as Image</div>
@@ -292,15 +284,15 @@ const MD = {
     "Sunset Park":{r:{s:2000,b1:2500,b2:3200,b3:3900},sale:{c:580000,co:280000,th:1050000,tf:1200000},fc:{d:"bullish",p:"+6.1%",n:"Industrial-to-residential conversion activity. Underpriced relative to borough avg. Strong 2-family investment demand. Industry City revitalization."},rt:"+4.4%",st:"+6.1%"},
     "Vinegar Hill":{r:{s:3000,b1:4100,b2:5700,b3:7300},sale:{c:1100000,co:580000,th:2300000,tf:null},fc:{d:"neutral",p:"+2.8%",n:"Tiny historic district adjacent to DUMBO. Cobblestone premium. Extremely limited inventory. Boutique demand from DUMBO spillover buyers."},rt:"+5.5%",st:"+2.8%"},
     "Williamsburg":{r:{s:3400,b1:4200,b2:5800,b3:7200},sale:{c:1250000,co:680000,th:2800000,tf:2200000},fc:{d:"neutral",p:"+2.1%",n:"New waterfront inventory adding supply. Avg property size shrinking. Strong rental demand. Cautious on purchases above $1.5M."},rt:"+5.2%",st:"+2.1%"},
-    "Windsor Terrace":{r:{s:2600,b1:3400,b2:4800,b3:6200},sale:{c:980000,co:530000,th:1900000,tf:2000000},fc:{d:"bullish",p:"+4.8%",n:"Quieter Park Slope alternative. Prospect Park access. Family-friendly. Limited supply, growing demand from professionals priced out of Park Slope."},rt:"+4.2%",st:"+4.8%"}
+    "Windsor Terrace":{r:{s:2600,b1:3800,b2:4800,b3:6200},sale:{c:980000,co:530000,th:1900000,tf:2000000},fc:{d:"bullish",p:"+4.8%",n:"#3 most searched NYC neighborhood (StreetEasy 2026). Searches up 44.7% YoY. Median rent $3,800. Asking prices at $1,125,000. Park Slope alternative with Prospect Park access. Strong family demand."},rt:"+4.2%",st:"+4.8%"}
   },
   manhattan:{
     "Battery Park City":{r:{s:3800,b1:5200,b2:7800,b3:11000},sale:{c:1400000,co:null,th:null,tf:null},fc:{d:"neutral",p:"+2.8%",n:"Rents up 2.8%. Waterfront luxury living. Ground lease structure on condos is key consideration. Strong corporate tenant demand."},rt:"+2.8%",st:"+2.8%"},
     "Chelsea":{r:{s:3600,b1:6006,b2:8500,b3:12000},sale:{c:2200000,co:1400000,th:9000000,tf:null},fc:{d:"neutral",p:"+2.2%",n:"Chelsea avg 1BR $6,006 (Rent.com). Tech and creative professional demand sustained. High Line proximity commands premium."},rt:"+4.8%",st:"+2.2%"},
     "Chinatown":{r:{s:2800,b1:3600,b2:5000,b3:6500},sale:{c:780000,co:420000,th:null,tf:null},fc:{d:"neutral",p:"+3.5%",n:"Dense community with strong local demand. LES and SoHo proximity. Limited new development preserves character."},rt:"+4.0%",st:"+3.5%"},
     "East Harlem":{r:{s:2400,b1:3200,b2:4500,b3:5800},sale:{c:680000,co:350000,th:2200000,tf:2500000},fc:{d:"bullish",p:"+5.9%",n:"Rapidly gentrifying. Strong demand from buyers priced out of UES. Mixed-income development pipeline. Restaurant scene emerging."},rt:"+6.0%",st:"+5.9%"},
-    "East Village":{r:{s:3400,b1:4600,b2:6500,b3:9000},sale:{c:1200000,co:680000,th:5500000,tf:null},fc:{d:"neutral",p:"+2.5%",n:"Cultural hub with strong nightlife. NYU proximity drives rental demand. Stabilized pricing after rapid appreciation."},rt:"+4.5%",st:"+2.5%"},
-    "Financial District":{r:{s:3500,b1:4800,b2:7000,b3:9500},sale:{c:1100000,co:600000,th:null,tf:null},fc:{d:"bullish",p:"+5.2%",n:"FiDi rents up 5.2%. Office-to-residential via City of Yes adding inventory. New condo conversions with low carrying costs."},rt:"+5.2%",st:"+5.2%"},
+    "East Village":{r:{s:3400,b1:4650,b2:6500,b3:9000},sale:{c:1200000,co:680000,th:5500000,tf:null},fc:{d:"neutral",p:"+2.5%",n:"#2 most searched NYC neighborhood (StreetEasy 2026). Searches surged 45.8% YoY. Rents climbed 13%+ YoY. NYU proximity and nightlife anchor strong renter demand."},rt:"+13.0%",st:"+2.5%"},
+    "Financial District":{r:{s:3500,b1:4690,b2:7000,b3:9500},sale:{c:1100000,co:600000,th:null,tf:null},fc:{d:"bullish",p:"+5.2%",n:"#1 most searched NYC neighborhood (StreetEasy 2026). Searches surged 46.7% YoY. Office-to-residential conversions (25 Water St: 1,320 units) driving residential growth. FiDi median rent ~$4,690."},rt:"+5.2%",st:"+5.2%"},
     "Flatiron":{r:{s:4200,b1:5768,b2:8200,b3:11500},sale:{c:1800000,co:950000,th:null,tf:null},fc:{d:"neutral",p:"+2.0%",n:"4th most expensive 1BR in NYC at $5,768. Q1 2026 sales dropped 33% at Victoria and Gramercy Place. Tech hub adjacency."},rt:"+4.2%",st:"+2.0%"},
     "Greenwich Village":{r:{s:4000,b1:5500,b2:8000,b3:11000},sale:{c:1900000,co:1200000,th:8000000,tf:null},fc:{d:"neutral",p:"+2.3%",n:"Historic charm and walkability command premium. NYU proximity. Rent-stabilized units limiting market-rate supply."},rt:"+4.0%",st:"+2.3%"},
     "Hamilton Heights":{r:{s:2500,b1:3300,b2:4600,b3:6000},sale:{c:720000,co:380000,th:2600000,tf:2800000},fc:{d:"bullish",p:"+6.1%",n:"Upper Manhattan gem with landmarked rowhouses. Demand from buyers priced out of Harlem core. Columbia University proximity."},rt:"+5.8%",st:"+6.1%"},
@@ -308,7 +300,7 @@ const MD = {
     "Hell's Kitchen":{r:{s:3800,b1:4898,b2:7000,b3:9800},sale:{c:1200000,co:680000,th:null,tf:null},fc:{d:"neutral",p:"+3.0%",n:"1BR avg $4,898 — one of Manhattan's most popular neighborhoods. Theater District and Hudson Yards proximity. Dense rental inventory."},rt:"+5.0%",st:"+3.0%"},
     "Hudson Heights":{r:{s:2200,b1:2900,b2:4000,b3:5200},sale:{c:650000,co:340000,th:null,tf:null},fc:{d:"bullish",p:"+5.5%",n:"Fort Tryon Park and Hudson River views. Undervalued vs lower Manhattan. Art Deco co-op buildings offer excellent value."},rt:"+5.0%",st:"+5.5%"},
     "Hudson Square":{r:{s:5000,b1:7450,b2:10000,b3:14000},sale:{c:3200000,co:null,th:null,tf:null},fc:{d:"neutral",p:"+3.5%",n:"Highest 1BR rent in ALL of NYC at $7,450 (Leaseswap). Luxury new development. Google HQ proximity. Ultra-premium residential."},rt:"+8.0%",st:"+3.5%"},
-    "Hudson Yards":{r:{s:4500,b1:5555,b2:8200,b3:12000},sale:{c:4620000,co:null,th:null,tf:null},fc:{d:"neutral",p:"+2.5%",n:"NYC's most expensive neighborhood — $4.62M median Q1 2026 (PropertyShark #1 for 7th consecutive year). Ultra-premium pricing. Corporate luxury demand."},rt:"+6.5%",st:"+2.5%"},
+    "Hudson Yards":{r:{s:4500,b1:5555,b2:8200,b3:12000},sale:{c:4620000,co:null,th:null,tf:null},fc:{d:"neutral",p:"+2.5%",n:"NYC's most expensive neighborhood — $4.62M median (PropertyShark). Manhattan median reached $1.225M Q1 2026 (+5.2% YoY). 2,757 closings Q1 — 6th consecutive quarter of annual sales growth."},rt:"+6.5%",st:"+2.5%"},
     "Inwood":{r:{s:2000,b1:2700,b2:3600,b3:4700},sale:{c:580000,co:295000,th:null,tf:null},fc:{d:"bullish",p:"+6.0%",n:"Northern Manhattan's most affordable area. Inwood Hill Park. Rising search interest. A train to Midtown in 30 min. Excellent upside."},rt:"+5.5%",st:"+6.0%"},
     "Kips Bay":{r:{s:3300,b1:4400,b2:6200,b3:8500},sale:{c:1050000,co:580000,th:null,tf:null},fc:{d:"neutral",p:"+2.8%",n:"Midtown adjacent. NYU Medical drives rental demand from medical professionals. Good value vs Gramercy Park."},rt:"+3.8%",st:"+2.8%"},
     "Lincoln Square":{r:{s:4200,b1:5800,b2:8500,b3:12000},sale:{c:2400000,co:1500000,th:null,tf:null},fc:{d:"neutral",p:"+2.5%",n:"Lincoln Center proximity drives cultural premium. Among most expensive on Apartments.com. Strong luxury demand."},rt:"+4.5%",st:"+2.5%"},
@@ -370,7 +362,7 @@ const MD = {
     "Melrose":{r:{s:1750,b1:2200,b2:2800,b3:3500},sale:{c:null,co:150000,th:680000,tf:800000},fc:{d:"bullish",p:"+5.5%",n:"1BR at $1,650 — Leaseswap 3rd most affordable in NYC. South Bronx revitalization wave reaching here. Early-stage opportunity."},rt:"+4.5%",st:"+5.5%"},
     "Morris Heights":{r:{s:1700,b1:2150,b2:2750,b3:3400},sale:{c:null,co:150000,th:680000,tf:800000},fc:{d:"neutral",p:"+3.8%",n:"1BR at $1,700 — Leaseswap 5th most affordable NYC. CCNY students drive demand. 4 and D trains."},rt:"+3.5%",st:"+3.8%"},
     "Morrisania":{r:{s:1600,b1:2050,b2:2600,b3:3200},sale:{c:null,co:155000,th:700000,tf:820000},fc:{d:"bullish",p:"+5.0%",n:"South Bronx arts and culture emergence. New investment following Mott Haven. 2 and 5 trains. Early-stage gentrification."},rt:"+4.2%",st:"+5.0%"},
-    "Mott Haven":{r:{s:2200,b1:2814,b2:3600,b3:4500},sale:{c:520000,co:250000,th:950000,tf:1050000},fc:{d:"bullish",p:"+7.8%",n:"South Bronx renaissance leader. Highest Bronx median at $2,814 (PIX11/Douglas Elliman). New development, arts scene, Manhattan proximity. Top Bronx appreciation pick 2026."},rt:"+7.2%",st:"+7.8%"},
+    "Mott Haven":{r:{s:2000,b1:2731,b2:3500,b3:4300},sale:{c:520000,co:250000,th:950000,tf:1050000},fc:{d:"bullish",p:"+7.8%",n:"South Bronx renaissance leader. Bronx avg 1BR at $2,731 (RentHop Apr 2026). New development, arts scene, and Manhattan proximity drive demand. Top Bronx appreciation pick 2026."},rt:"+7.2%",st:"+7.8%"},
     "Norwood":{r:{s:1720,b1:2200,b2:2800,b3:3450},sale:{c:null,co:155000,th:700000,tf:820000},fc:{d:"neutral",p:"+3.6%",n:"1BR at $1,675 — Leaseswap 4th most affordable NYC. B and D trains. Fordham University overflow. Steady community."},rt:"+3.2%",st:"+3.6%"},
     "Parkchester":{r:{s:1600,b1:2050,b2:2600,b3:3200},sale:{c:250000,co:180000,th:null,tf:null},fc:{d:"neutral",p:"+3.5%",n:"Large co-op complex community. 6 train access. Affordable homeownership in the Bronx. Strong community amenities."},rt:"+3.0%",st:"+3.5%"},
     "Pelham Bay":{r:{s:1750,b1:2250,b2:2850,b3:3550},sale:{c:null,co:220000,th:880000,tf:1020000},fc:{d:"neutral",p:"+4.0%",n:"Pelham Bay Park — NYC's largest park. 6 train terminus. Waterfront access. Family neighborhood with outdoor lifestyle."},rt:"+3.5%",st:"+4.0%"},
@@ -504,106 +496,6 @@ function renderIG(n,d,b){
   capts.forEach((_,i)=>{sel.innerHTML+=`<button class="variant-btn ${i===0?'active':''}" onclick="selectVariant(this,${i})">Version ${i+1}</button>`;});
   renderCaption();
   document.getElementById('igPanel').classList.add('visible');
-  // Reset preview state while new image renders
-  document.getElementById('igRenderedImgWrap').style.display='none';
-  document.getElementById('igPostImageWrap').style.display='';
-  document.getElementById('igRenderHint').style.display='none';
-  document.getElementById('savePreviewBtn').style.display='none';
-  renderPreviewImage();
-}
-
-function renderPreviewImage(){
-  if(!cData||!cN)return;
-  const sale=fp(cData.sale.c||cData.sale.th||cData.sale.co||cData.sale.tf);
-  const W=1080,H=1080;
-  const previewHTML=`<div style="
-    width:${W}px;height:${H}px;
-    background:linear-gradient(145deg,#0A0A0A 0%,#111318 40%,#0A0A0A 100%);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    position:relative;overflow:hidden;font-family:'DM Sans',sans-serif;box-sizing:border-box;
-  ">
-    <div style="position:absolute;top:-120px;left:-120px;width:520px;height:520px;background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 65%);"></div>
-    <div style="position:absolute;bottom:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(74,144,217,0.07) 0%,transparent 65%);"></div>
-    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.035) 1px,transparent 1px);background-size:72px 72px;"></div>
-    <div style="position:absolute;top:32px;left:32px;width:48px;height:48px;border-top:1px solid rgba(201,168,76,0.35);border-left:1px solid rgba(201,168,76,0.35);"></div>
-    <div style="position:absolute;top:32px;right:32px;width:48px;height:48px;border-top:1px solid rgba(201,168,76,0.35);border-right:1px solid rgba(201,168,76,0.35);"></div>
-    <div style="position:absolute;bottom:32px;left:32px;width:48px;height:48px;border-bottom:1px solid rgba(201,168,76,0.35);border-left:1px solid rgba(201,168,76,0.35);"></div>
-    <div style="position:absolute;bottom:32px;right:32px;width:48px;height:48px;border-bottom:1px solid rgba(201,168,76,0.35);border-right:1px solid rgba(201,168,76,0.35);"></div>
-    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;width:100%;text-align:center;">
-      <div style="font-size:22px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,0.75);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
-        <span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>NYC REAL ESTATE<span style="display:inline-block;width:32px;height:1px;background:rgba(201,168,76,0.5);"></span>
-      </div>
-      <div style="font-size:30px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,234,240,0.55);margin-bottom:20px;">📍 ${cN}</div>
-      <div style="font-family:'Playfair Display',serif;font-size:88px;font-weight:900;color:#FFFFFF;line-height:1.05;margin-bottom:44px;">Market<br><span style="color:#C9A84C;font-style:italic;">Report</span></div>
-      <div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);margin-bottom:44px;"></div>
-      <div style="display:flex;gap:48px;align-items:center;margin-bottom:52px;">
-        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${fp(cData.r.b1)}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">1BR Rent/Mo</div></div>
-        <div style="width:1px;height:56px;background:rgba(201,168,76,0.2);"></div>
-        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${sale}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Avg Sale</div></div>
-        <div style="width:1px;height:56px;background:rgba(201,168,76,0.2);"></div>
-        <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:48px;font-weight:500;color:#C9A84C;line-height:1;">${cData.fc.p}</div><div style="font-size:17px;color:rgba(122,128,153,0.9);text-transform:uppercase;letter-spacing:2px;margin-top:6px;">2026 Outlook</div></div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;">
-        ${[['Studio',fp(cData.r.s)],['1BR',fp(cData.r.b1)],['2BR',fp(cData.r.b2)],['3BR',fp(cData.r.b3)]].map(([lbl,val])=>`
-          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.22);border-radius:6px;padding:14px 22px;text-align:center;">
-            <div style="font-size:15px;color:rgba(122,128,153,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">${lbl}</div>
-            <div style="font-family:'DM Mono',monospace;font-size:28px;color:#E8EAF0;">${val}<span style="font-size:16px;color:rgba(201,168,76,0.6);margin-left:3px;">/mo</span></div>
-          </div>`).join('')}
-      </div>
-      <div style="border-top:1px solid rgba(201,168,76,0.15);padding-top:28px;width:100%;text-align:center;">
-        <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#C9A84C;letter-spacing:2px;margin-bottom:6px;">MONJURUL HAQUE</div>
-        <div style="font-size:17px;color:rgba(122,128,153,0.8);letter-spacing:3px;text-transform:uppercase;">Associate Broker · Gama NYC · All 5 Boroughs</div>
-        <div style="font-size:17px;color:rgba(122,128,153,0.6);margin-top:4px;letter-spacing:1px;">(347) 968-8550 · 9726 3rd Ave, Brooklyn, NY</div>
-      </div>
-    </div>
-  </div>`;
-
-  const target=document.getElementById('exportTarget');
-  target.innerHTML=previewHTML;
-  target.style.cssText=`position:fixed;left:-${W+100}px;top:0;width:${W}px;height:${H}px;z-index:-1;`;
-
-  setTimeout(()=>{
-    html2canvas(target.firstElementChild,{
-      width:W,height:H,scale:2,useCORS:true,allowTaint:true,
-      backgroundColor:'#0A0A0A',logging:false,
-      onclone:(doc)=>{
-        const s=doc.createElement('link');s.rel='stylesheet';
-        s.href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap';
-        doc.head.appendChild(s);
-      }
-    }).then(canvas=>{
-      const dataUrl=canvas.toDataURL('image/png');
-      // Store for save button
-      window._igPreviewDataUrl=dataUrl;
-      const img=document.getElementById('igRenderedImg');
-      img.src=dataUrl;
-      // Swap: hide CSS div, show real img
-      document.getElementById('igPostImageWrap').style.display='none';
-      document.getElementById('igRenderedImgWrap').style.display='block';
-      document.getElementById('igRenderHint').style.display='block';
-      document.getElementById('savePreviewBtn').style.display='inline-flex';
-      target.innerHTML='';
-      target.style.cssText='position:fixed;left:-9999px;top:0;z-index:-1;';
-      // Show overlay hint briefly on mobile
-      const ov=document.getElementById('igImgOverlay');
-      ov.style.opacity='1';setTimeout(()=>ov.style.opacity='0',1800);
-    }).catch(()=>{
-      target.innerHTML='';
-      target.style.cssText='position:fixed;left:-9999px;top:0;z-index:-1;';
-    });
-  },150);
-}
-
-function savePreviewImage(){
-  if(!window._igPreviewDataUrl)return;
-  const b=document.getElementById('savePreviewBtn');
-  const slug=cN.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-  const link=document.createElement('a');
-  link.download=`hawk-${slug}-square-may2026.png`;
-  link.href=window._igPreviewDataUrl;
-  link.click();
-  b.textContent='✓ Saved!';
-  setTimeout(()=>{b.innerHTML='💾 Save Image';},2000);
 }
 
 function getCaptions(n,d,b){
