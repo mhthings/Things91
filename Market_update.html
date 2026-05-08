@@ -387,6 +387,156 @@
       .mini-stats { grid-template-columns: 1fr; }
       .mu-dash-hood { font-size: 26px; }
     }
+    /* ── LEAD GATE ── */
+    .gate-wrap {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 52px; align-items: start;
+      margin-bottom: 0;
+    }
+    .gate-eyebrow {
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .gate-title {
+      font-family: var(--serif-font);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600; color: #fff;
+      line-height: 1.05; margin-bottom: 16px;
+    }
+    .gate-title span { color: var(--gold); font-style: italic; }
+    .gate-sub {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.75; margin-bottom: 28px;
+      max-width: 440px;
+    }
+    .gate-features { display: flex; flex-direction: column; gap: 10px; }
+    .gate-feat {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #d0c8bc;
+    }
+    .gate-feat-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    /* Gate card */
+    .gate-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 26px 24px;
+      margin-bottom: 14px;
+    }
+    .gate-card-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .gate-card-icon {
+      width: 40px; height: 40px;
+      background: rgba(184,155,94,0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .gate-card-icon svg { width: 18px; height: 18px; }
+    .gate-card-title {
+      font-family: var(--serif-font);
+      font-size: 18px; font-weight: 600; color: #fff;
+    }
+    .gate-card-sub { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: .3px; }
+
+    .gate-field { margin-bottom: 14px; }
+    .gate-field label {
+      display: block; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .gate-field input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--text); font-family: var(--body-font);
+      font-size: 14px; font-weight: 300;
+      padding: 11px 14px; border-radius: 3px;
+      outline: none; transition: border-color .25s;
+    }
+    .gate-field input:focus { border-color: var(--gold); }
+    .gate-field input::placeholder { color: var(--muted); font-size: 13px; }
+
+    .gate-error {
+      background: rgba(231,76,60,.1);
+      border: 1px solid rgba(231,76,60,.25);
+      border-radius: 3px; padding: 9px 12px;
+      font-size: 12px; color: #e74c3c;
+      margin-bottom: 12px;
+    }
+    .gate-submit {
+      width: 100%;
+      background: var(--gold); color: #000;
+      border: none; border-radius: 3px;
+      font-family: var(--body-font); font-size: 12px;
+      font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 14px 20px;
+      cursor: pointer; transition: all .25s;
+      display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+      margin-bottom: 12px;
+    }
+    .gate-submit:hover { background: var(--gold-light); }
+    .gate-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .gate-submit svg { width: 14px; height: 14px; }
+    .gate-privacy {
+      font-size: 11px; color: var(--muted);
+      text-align: center; line-height: 1.5;
+    }
+
+    /* Success */
+    .gate-success-icon {
+      width: 52px; height: 52px;
+      background: rgba(39,174,96,.15);
+      border: 1px solid rgba(39,174,96,.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: #27AE60;
+      margin: 0 auto 16px;
+    }
+    .gate-success-title {
+      font-family: var(--serif-font);
+      font-size: 24px; font-weight: 600; color: #fff;
+      margin-bottom: 10px;
+    }
+    .gate-success-msg { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 320px; margin: 0 auto; }
+
+    /* Agent mini card */
+    .gate-agent {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .gate-agent-photo {
+      width: 46px; height: 46px; border-radius: 50%;
+      object-fit: cover; object-position: top;
+      border: 1px solid rgba(184,155,94,.3);
+      background: var(--mid); flex-shrink: 0;
+    }
+    .gate-agent-name {
+      font-size: 14px; font-weight: 500; color: #fff;
+      margin-bottom: 2px;
+    }
+    .gate-agent-title { font-size: 11px; color: var(--gold); letter-spacing: .5px; margin-bottom: 4px; }
+    .gate-agent-contact { font-size: 12px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+    .gate-agent-contact a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .gate-agent-contact a:hover { color: var(--gold); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .gate-wrap { grid-template-columns: 1fr; gap: 36px; }
+      .gate-sub { max-width: 100%; }
+    }
+
   </style>
 </head>
 <body>
@@ -453,33 +603,97 @@
   </div>
 
 
-  <!-- WELCOME -->
-   <div class="mu-welcome" id="welcomeState">
-    <h3>For Detailed Neighborhood Insights, Please Get In Touch!</h3>
-    <p>We can provide you with detailed rental comps, sales comps, price ranges, and the 2026 market forecast.</p>
-    <div class="mu-hints">
-      <span class="mu-hint">125+ Neighborhoods</span>
-      <span class="mu-hint">All NYC Boroughs</span>
-      <span class="mu-hint">Rental Comps</span>
-      <span class="mu-hint">Sales Comps</span>
-      <span class="mu-hint">Price Ranges</span>
-      <span class="mu-hint">2026 Forecasts</span>
+  <!-- LEAD GATE -->
+  <div class="gate-wrap anim-3">
 
-       <!-- CTA delete from here if you want the old style -->
-  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:48px;padding-top:40px;border-top:1px solid var(--border);">
-    <a class="btn btn-gold" href="contact.html">Contact Hawk ↗</a>
-    <a class="btn btn-outline" href="listings.html">View Live Listings</a>
-  </div>
-
- <!-- Sources delete from here if you want the old style -->
-    <div class="mu-sources">
-      Data sources: StreetEasy · PropertyShark · Douglas Elliman · RentCafe (Yardi Matrix) · Freddie Mac · Baruch College CUNY · PIX11 · Corcoran · Brown Harris Stevens<br>
-      <span style="opacity:.55;">Updated May 2026 · Monjurul Haque · Associate Broker · Gama NYC · 9726 3rd Ave, Brooklyn · (347) 968-8550 · mhaquerealestate@gmail.com</span>
+    <!-- Left: value proposition -->
+    <div class="gate-left">
+      <div class="gate-eyebrow">Exclusive Access</div>
+      <h2 class="gate-title">Get Full Neighborhood<br><span>Market Reports</span></h2>
+      <p class="gate-sub">Detailed rental comps, sales comps, price ranges, and 2026 appreciation forecasts for 125+ NYC neighborhoods — delivered directly by Hawk.</p>
+      <div class="gate-features">
+        <div class="gate-feat"><span class="gate-feat-dot"></span>Rental comps by bedroom type</div>
+        <div class="gate-feat"><span class="gate-feat-dot"></span>Condo, co-op, townhouse &amp; 2-family sales data</div>
+        <div class="gate-feat"><span class="gate-feat-dot"></span>Market price ranges &amp; demand indicators</div>
+        <div class="gate-feat"><span class="gate-feat-dot"></span>2026 neighborhood appreciation forecast</div>
+        <div class="gate-feat"><span class="gate-feat-dot"></span>Personalized insights from a licensed broker</div>
+      </div>
     </div>
 
+    <!-- Right: contact form -->
+    <div class="gate-right">
+      <div class="gate-card">
+        <div class="gate-card-head">
+          <div class="gate-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div>
+            <div class="gate-card-title">Request Market Data</div>
+            <div class="gate-card-sub">Free · No obligation · Fast response</div>
+          </div>
+        </div>
+
+        <div id="gateForm">
+          <div class="gate-field">
+            <label for="gateName">Full Name</label>
+            <input type="text" id="gateName" placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="gate-field">
+            <label for="gateEmail">Email Address</label>
+            <input type="email" id="gateEmail" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="gate-field">
+            <label for="gatePhone">Phone Number</label>
+            <input type="tel" id="gatePhone" placeholder="(347) 000-0000" autocomplete="tel">
+          </div>
+          <div class="gate-field">
+            <label for="gateNeighborhood">Neighborhood of Interest <span style="color:var(--muted);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input type="text" id="gateNeighborhood" placeholder="e.g. Crown Heights, Astoria, Harlem">
+          </div>
+          <div id="gateError" class="gate-error" style="display:none;"></div>
+          <button class="gate-submit" onclick="submitGate()">
+            <span id="gateSubmitText">Request My Market Report</span>
+            <svg id="gateSubmitIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <p class="gate-privacy">Your information is kept private and never shared. You will be contacted directly by Monjurul Haque.</p>
+        </div>
+
+        <!-- Success state -->
+        <div id="gateSuccess" style="display:none;text-align:center;padding:20px 0;">
+          <div class="gate-success-icon">✓</div>
+          <div class="gate-success-title">Request Received!</div>
+          <p class="gate-success-msg">Thank you. Hawk will reach out within 24 hours with your personalized market report. Check your email for confirmation.</p>
+          <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap;">
+            <a class="btn btn-gold" href="contact.html">Contact Hawk Directly</a>
+            <a class="btn btn-outline" href="tel:+13479688550">Call (347) 968-8550</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent mini card -->
+      <div class="gate-agent">
+        <img class="gate-agent-photo" src="Final Gama-36.jpg" alt="Monjurul Haque">
+        <div class="gate-agent-info">
+          <div class="gate-agent-name">Monjurul Haque — Hawk</div>
+          <div class="gate-agent-title">Associate Broker · Gama NYC</div>
+          <div class="gate-agent-contact">
+            <a href="tel:+13479688550">(347) 968-8550</a>
+            <span>·</span>
+            <a href="mailto:mhaquerealestate@gmail.com">Email Hawk</a>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 
+  <!-- Sources -->
+  <div class="mu-sources" style="margin-top:48px;">
+    Data sources: StreetEasy · PropertyShark · Douglas Elliman · RentCafe (Yardi Matrix) · Freddie Mac · Baruch College CUNY · PIX11 · Corcoran · Brown Harris Stevens<br>
+    <span style="opacity:.55;">Updated May 2026 · Monjurul Haque · Associate Broker · Gama NYC · 9726 3rd Ave, Brooklyn · (347) 968-8550</span>
+  </div>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -502,6 +716,64 @@
 </footer>
 
 
+
+<script>
+function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
+function closeMenu(){document.getElementById('navMobile').classList.remove('open');}
+
+function submitGate(){
+  const name  = document.getElementById('gateName').value.trim();
+  const email = document.getElementById('gateEmail').value.trim();
+  const phone = document.getElementById('gatePhone').value.trim();
+  const hood  = document.getElementById('gateNeighborhood').value.trim();
+  const errEl = document.getElementById('gateError');
+  const btn   = document.querySelector('.gate-submit');
+
+  // Validate
+  if(!name){ showError('Please enter your full name.'); return; }
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showError('Please enter a valid email address.'); return; }
+  if(!phone){ showError('Please enter your phone number.'); return; }
+
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  document.getElementById('gateSubmitText').textContent = 'Sending...';
+  document.getElementById('gateSubmitIcon').style.display = 'none';
+
+  // Build mailto link — opens email client with lead info pre-filled
+  const subject = encodeURIComponent('Market Data Request — ' + name);
+  const body = encodeURIComponent(
+    'New Market Data Request\n\n' +
+    'Name: ' + name + '\n' +
+    'Email: ' + email + '\n' +
+    'Phone: ' + phone + '\n' +
+    'Neighborhood of Interest: ' + (hood || 'Not specified') + '\n\n' +
+    'Submitted via mhaquerealtor.com/Market_update.html'
+  );
+  window.location.href = 'mailto:mhaquerealestate@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show success after short delay
+  setTimeout(() => {
+    document.getElementById('gateForm').style.display = 'none';
+    document.getElementById('gateSuccess').style.display = 'block';
+  }, 800);
+}
+
+function showError(msg){
+  const el = document.getElementById('gateError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// Allow Enter key on inputs
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    const active = document.activeElement;
+    if(active && active.closest('#gateForm')){
+      submitGate();
+    }
+  }
+});
+</script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
