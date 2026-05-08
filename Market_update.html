@@ -634,28 +634,44 @@
         </div>
 
         <div id="gateForm">
-          <div class="gate-field">
-            <label for="gateName">Full Name</label>
-            <input type="text" id="gateName" placeholder="Your full name" autocomplete="name">
-          </div>
-          <div class="gate-field">
-            <label for="gateEmail">Email Address</label>
-            <input type="email" id="gateEmail" placeholder="your@email.com" autocomplete="email">
-          </div>
-          <div class="gate-field">
-            <label for="gatePhone">Phone Number</label>
-            <input type="tel" id="gatePhone" placeholder="(347) 000-0000" autocomplete="tel">
-          </div>
-          <div class="gate-field">
-            <label for="gateNeighborhood">Neighborhood of Interest <span style="color:var(--muted);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
-            <input type="text" id="gateNeighborhood" placeholder="e.g. Crown Heights, Astoria, Harlem">
-          </div>
-          <div id="gateError" class="gate-error" style="display:none;"></div>
-          <button class="gate-submit" onclick="submitGate()">
-            <span id="gateSubmitText">Request My Market Report</span>
-            <svg id="gateSubmitIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-          <p class="gate-privacy">Your information is kept private and never shared. You will be contacted directly by Monjurul Haque.</p>
+          <form id="marketGateForm"
+            action="https://formsubmit.co/mhaquerealestate@gmail.com"
+            method="POST"
+            target="gateFormTarget">
+
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="Market Data Request — Hawk Real Estate Website">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_autoresponse" value="Thank you for requesting NYC market data. Hawk will send you a personalized neighborhood report within 24 hours. — Monjurul Haque, (347) 968-8550">
+            <input type="hidden" name="source" value="Market Data Request — mhaquerealtor.com/Market_update.html">
+
+            <div class="gate-field">
+              <label for="gateName">Full Name</label>
+              <input type="text" id="gateName" name="name" placeholder="Your full name" autocomplete="name" required>
+            </div>
+            <div class="gate-field">
+              <label for="gateEmail">Email Address</label>
+              <input type="email" id="gateEmail" name="email" placeholder="your@email.com" autocomplete="email" required>
+            </div>
+            <div class="gate-field">
+              <label for="gatePhone">Phone Number</label>
+              <input type="tel" id="gatePhone" name="phone" placeholder="(347) 000-0000" autocomplete="tel" required>
+            </div>
+            <div class="gate-field">
+              <label for="gateNeighborhood">Neighborhood of Interest <span style="color:var(--muted);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
+              <input type="text" id="gateNeighborhood" name="neighborhood" placeholder="e.g. Crown Heights, Astoria, Harlem">
+            </div>
+
+            <div id="gateError" class="gate-error" style="display:none;"></div>
+
+            <button type="submit" class="gate-submit" id="gateSubmitBtn">
+              <span id="gateSubmitText">Request My Market Report</span>
+              <svg id="gateSubmitIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <p class="gate-privacy">Your information is kept private and never shared. You will be contacted directly by Monjurul Haque.</p>
+
+          </form>
         </div>
 
         <!-- Success state -->
@@ -717,63 +733,133 @@
 
 
 
+<!-- Hidden iframe catches FormSubmit redirect — page stays, success state shows -->
+<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>
+
 <script>
 function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
 function closeMenu(){document.getElementById('navMobile').classList.remove('open');}
 
-function submitGate(){
-  const name  = document.getElementById('gateName').value.trim();
-  const email = document.getElementById('gateEmail').value.trim();
-  const phone = document.getElementById('gatePhone').value.trim();
-  const hood  = document.getElementById('gateNeighborhood').value.trim();
-  const errEl = document.getElementById('gateError');
-  const btn   = document.querySelector('.gate-submit');
-
-  // Validate
-  if(!name){ showError('Please enter your full name.'); return; }
-  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showError('Please enter a valid email address.'); return; }
-  if(!phone){ showError('Please enter your phone number.'); return; }
-
-  errEl.style.display = 'none';
-  btn.disabled = true;
-  document.getElementById('gateSubmitText').textContent = 'Sending...';
-  document.getElementById('gateSubmitIcon').style.display = 'none';
-
-  // Build mailto link — opens email client with lead info pre-filled
-  const subject = encodeURIComponent('Market Data Request — ' + name);
-  const body = encodeURIComponent(
-    'New Market Data Request\n\n' +
-    'Name: ' + name + '\n' +
-    'Email: ' + email + '\n' +
-    'Phone: ' + phone + '\n' +
-    'Neighborhood of Interest: ' + (hood || 'Not specified') + '\n\n' +
-    'Submitted via mhaquerealtor.com/Market_update.html'
-  );
-  window.location.href = 'mailto:mhaquerealestate@gmail.com?subject=' + subject + '&body=' + body;
-
-  // Show success after short delay
-  setTimeout(() => {
-    document.getElementById('gateForm').style.display = 'none';
-    document.getElementById('gateSuccess').style.display = 'block';
-  }, 800);
+function closeModal(){
+  document.getElementById('successModal').style.display='none';
+  document.body.style.overflow='';
 }
 
-function showError(msg){
+// Close modal on backdrop click
+document.getElementById('successModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+// Submit into hidden iframe — same pattern as contact.html
+document.getElementById('marketGateForm').addEventListener('submit', function(e){
+  const btn  = document.getElementById('gateSubmitBtn');
+  const name = document.getElementById('gateName').value.trim();
+  const email= document.getElementById('gateEmail').value.trim();
+  const phone= document.getElementById('gatePhone').value.trim();
+  const errEl= document.getElementById('gateError');
+
+  // Client-side validation before letting the form submit
+  errEl.style.display = 'none';
+  if(!name){  e.preventDefault(); showGateError('Please enter your full name.'); return; }
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ e.preventDefault(); showGateError('Please enter a valid email address.'); return; }
+  if(!phone){ e.preventDefault(); showGateError('Please enter your phone number.'); return; }
+
+  // Lock button while submitting
+  btn.disabled = true;
+  document.getElementById('gateSubmitText').textContent = 'Sending…';
+  document.getElementById('gateSubmitIcon').style.display = 'none';
+
+  const form = this;
+
+  // When iframe loads (FormSubmit redirects into it), show success
+  document.getElementById('gateFormTarget').onload = function(){
+    // Show success state inside the card
+    document.getElementById('gateForm').style.display = 'none';
+    document.getElementById('gateSuccess').style.display = 'block';
+    // Also show the success modal (same as contact.html)
+    document.getElementById('successModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    form.reset();
+    btn.disabled = false;
+    document.getElementById('gateSubmitText').textContent = 'Request My Market Report';
+    document.getElementById('gateSubmitIcon').style.display = '';
+    this.onload = null;
+  };
+
+  // Allow native form submit to proceed into the iframe
+});
+
+function showGateError(msg){
   const el = document.getElementById('gateError');
   el.textContent = msg;
   el.style.display = 'block';
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
-
-// Allow Enter key on inputs
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    const active = document.activeElement;
-    if(active && active.closest('#gateForm')){
-      submitGate();
-    }
-  }
-});
 </script>
+
+<!-- SUCCESS MODAL — same as contact.html -->
+<div id="successModal" style="
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; padding:20px;">
+  <div style="
+    background:#141414; border:1px solid rgba(184,155,94,0.35);
+    border-radius:12px; padding:48px 44px; max-width:460px; width:100%;
+    text-align:center; position:relative;
+    box-shadow:0 24px 80px rgba(0,0,0,0.7);
+    animation:modalPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;">
+    <div style="
+      width:68px; height:68px; border-radius:50%;
+      background:rgba(184,155,94,0.1); border:1px solid rgba(184,155,94,0.3);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 24px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+           stroke="#b89b5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div style="font-size:10px; letter-spacing:4px; text-transform:uppercase; color:#b89b5e; margin-bottom:14px;">Request Sent</div>
+    <div style="
+      font-family:'Cormorant Garamond',serif;
+      font-size:32px; font-weight:600; color:#fff;
+      line-height:1.15; margin-bottom:16px;">
+      We'll be in touch<br>with you shortly!
+    </div>
+    <p style="font-size:15px; color:#ccc5ba; line-height:1.75; margin-bottom:32px;">
+      Thank you for requesting NYC market data. Hawk will send you a personalized neighborhood report within 24 hours.
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="tel:3479688550" style="
+        background:#b89b5e; color:#000;
+        font-family:'Jost',sans-serif; font-size:11px; font-weight:600;
+        letter-spacing:2px; text-transform:uppercase;
+        padding:13px 24px; border-radius:2px; text-decoration:none;">
+        Call (347) 968-8550
+      </a>
+      <button onclick="closeModal()" style="
+        background:transparent; border:1px solid rgba(184,155,94,0.3);
+        color:#ccc5ba; font-family:'Jost',sans-serif; font-size:11px;
+        letter-spacing:2px; text-transform:uppercase;
+        padding:13px 24px; border-radius:2px; cursor:pointer;
+        transition:border-color 0.2s, color 0.2s;"
+        onmouseover="this.style.borderColor='#b89b5e';this.style.color='#b89b5e'"
+        onmouseout="this.style.borderColor='rgba(184,155,94,0.3)';this.style.color='#ccc5ba'">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+<style>
+@keyframes modalPop {
+  from { opacity:0; transform:scale(0.88) translateY(20px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+</style>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
