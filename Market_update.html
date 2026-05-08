@@ -656,7 +656,7 @@
             </div>
             <div class="gate-field">
               <label for="gatePhone">Phone Number</label>
-              <input type="tel" id="gatePhone" name="phone" placeholder="(347) 000-0000" autocomplete="tel" required>
+              <input type="tel" id="gatePhone" name="phone" placeholder="(000) 000-0000" autocomplete="tel" required>
             </div>
             <div class="gate-field">
               <label for="gateNeighborhood">Neighborhood of Interest <span style="color:var(--muted);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
@@ -733,87 +733,10 @@
 
 
 
-<!-- Hidden iframe — must be static in DOM before form submits -->
-<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>
 
-<script>
-function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
-function closeMenu(){document.getElementById('navMobile').classList.remove('open');}
-
-function closeModal(){
-  document.getElementById('successModal').style.display='none';
-  document.body.style.overflow='';
-}
-
-// Close modal on backdrop click
-document.getElementById('successModal').addEventListener('click', function(e){
-  if(e.target === this) closeModal();
-});
-
-// Close on Escape key
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape') closeModal();
-});
-
-// Track state
-let gateSubmitted = false;
-let iframeReadyForSuccess = false;
-
-// Iframe fires onload once on page load (blank) — ignore that first fire
-document.getElementById('gateFormTarget').addEventListener('load', function(){
-  if(!iframeReadyForSuccess) return;
-  showGateSuccess();
-});
-
-document.getElementById('marketGateForm').addEventListener('submit', function(e){
-  // Hard block if already submitted
-  if(gateSubmitted){ e.preventDefault(); return; }
-
-  const btn   = document.getElementById('gateSubmitBtn');
-  const name  = document.getElementById('gateName').value.trim();
-  const email = document.getElementById('gateEmail').value.trim();
-  const phone = document.getElementById('gatePhone').value.trim();
-  const errEl = document.getElementById('gateError');
-
-  // Validate — stop submit if anything missing
-  errEl.style.display = 'none';
-  if(!name){ e.preventDefault(); showGateError('Please enter your full name.'); return; }
-  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ e.preventDefault(); showGateError('Please enter a valid email address.'); return; }
-  if(!phone){ e.preventDefault(); showGateError('Please enter your phone number.'); return; }
-
-  // Lock immediately — no double submit
-  gateSubmitted = true;
-  btn.disabled = true;
-  btn.style.opacity = '0.7';
-  document.getElementById('gateSubmitText').textContent = 'Sending…';
-  document.getElementById('gateSubmitIcon').style.display = 'none';
-
-  // Now safe to respond to iframe loads
-  iframeReadyForSuccess = true;
-
-  // Fallback: show success after 5s if iframe onload never fires
-  setTimeout(showGateSuccess, 5000);
-
-  // Let form submit natively into the hidden iframe
-});
-
-function showGateSuccess(){
-  if(document.getElementById('gateSuccess').style.display === 'block') return;
-  document.getElementById('gateForm').style.display = 'none';
-  document.getElementById('gateSuccess').style.display = 'block';
-  document.getElementById('successModal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function showGateError(msg){
-  const el = document.getElementById('gateError');
-  el.textContent = msg;
-  el.style.display = 'block';
-  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
-}
-</script>
 
 <!-- SUCCESS MODAL — same as contact.html -->
+
 <div id="successModal" style="
   display:none; position:fixed; inset:0; z-index:1000;
   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
@@ -866,12 +789,65 @@ function showGateError(msg){
     </div>
   </div>
 </div>
+
+
 <style>
 @keyframes modalPop {
   from { opacity:0; transform:scale(0.88) translateY(20px); }
   to   { opacity:1; transform:scale(1) translateY(0); }
 }
 </style>
+
+
+<!-- Hidden iframe to catch form submission response without page redirect -->
+<iframe name="formTarget" id="formTarget" style="display:none;" title="Form submission"></iframe>
+
+<script>
+  function toggleMenu() { document.getElementById('navMobile').classList.toggle('open'); }
+  function closeMenu()  { document.getElementById('navMobile').classList.remove('open'); }
+
+  function closeModal() {
+    const m = document.getElementById('successModal');
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('successModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Submit form into hidden iframe — avoids CORS issues with fetch
+  // The iframe catches the FormSubmit redirect, page stays put, modal shows
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    const form = this;
+
+    // Wait for iframe to load (FormSubmit redirects into it after processing)
+    document.getElementById('formTarget').onload = function() {
+      const modal = document.getElementById('successModal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      form.reset();
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      // Reset the listener so it doesn't fire on unrelated loads
+      this.onload = null;
+    };
+
+    // Allow native form submit to proceed into the iframe
+  });
+</script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
