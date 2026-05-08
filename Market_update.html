@@ -733,8 +733,8 @@
 
 
 
-<!-- Hidden iframe inserted dynamically at submit time to avoid premature onload -->
-<div id="gateIframeHolder"></div>
+<!-- Hidden iframe — must be static in DOM before form submits -->
+<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>
 
 <script>
 function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
@@ -755,68 +755,55 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeModal();
 });
 
-// Submit into hidden iframe — same pattern as contact.html
-let gateSubmitted = false; // prevents multiple submissions
+// Track state
+let gateSubmitted = false;
+let iframeReadyForSuccess = false;
+
+// Iframe fires onload once on page load (blank) — ignore that first fire
+document.getElementById('gateFormTarget').addEventListener('load', function(){
+  if(!iframeReadyForSuccess) return;
+  showGateSuccess();
+});
 
 document.getElementById('marketGateForm').addEventListener('submit', function(e){
-  // Block if already submitted
+  // Hard block if already submitted
   if(gateSubmitted){ e.preventDefault(); return; }
 
-  const btn  = document.getElementById('gateSubmitBtn');
-  const name = document.getElementById('gateName').value.trim();
-  const email= document.getElementById('gateEmail').value.trim();
-  const phone= document.getElementById('gatePhone').value.trim();
-  const errEl= document.getElementById('gateError');
+  const btn   = document.getElementById('gateSubmitBtn');
+  const name  = document.getElementById('gateName').value.trim();
+  const email = document.getElementById('gateEmail').value.trim();
+  const phone = document.getElementById('gatePhone').value.trim();
+  const errEl = document.getElementById('gateError');
 
-  // Client-side validation — stop submit if invalid
+  // Validate — stop submit if anything missing
   errEl.style.display = 'none';
-  if(!name){  e.preventDefault(); showGateError('Please enter your full name.'); return; }
+  if(!name){ e.preventDefault(); showGateError('Please enter your full name.'); return; }
   if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ e.preventDefault(); showGateError('Please enter a valid email address.'); return; }
   if(!phone){ e.preventDefault(); showGateError('Please enter your phone number.'); return; }
 
-  // Mark as submitted immediately — blocks any double-click
+  // Lock immediately — no double submit
   gateSubmitted = true;
-
-  // Lock button permanently while sending
   btn.disabled = true;
   btn.style.opacity = '0.7';
   document.getElementById('gateSubmitText').textContent = 'Sending…';
   document.getElementById('gateSubmitIcon').style.display = 'none';
 
-  const form = this;
+  // Now safe to respond to iframe loads
+  iframeReadyForSuccess = true;
 
-  // Set onload BEFORE the form submits so we catch the redirect
-  // Use a timeout fallback in case iframe onload doesn't fire (some browsers)
-  // Create iframe dynamically right before submit — avoids premature onload
-  const holder = document.getElementById('gateIframeHolder');
-  holder.innerHTML = '<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>';
-  const iframe = document.getElementById('gateFormTarget');
+  // Fallback: show success after 5s if iframe onload never fires
+  setTimeout(showGateSuccess, 5000);
 
-  let successShown = false;
-  function showSuccess(){
-    if(successShown) return;
-    successShown = true;
-    // Show success state inside the gate card
-    document.getElementById('gateForm').style.display = 'none';
-    document.getElementById('gateSuccess').style.display = 'block';
-    // Show the success modal
-    document.getElementById('successModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    iframe.onload = null;
-  }
-
-  iframe.onload = function(){
-    // Guard: ignore the initial empty load that fires on page load
-    // FormSubmit redirect takes ~800ms+, so ignore loads under 500ms after submit
-    showSuccess();
-    this.onload = null;
-  };
-
-  // Fallback: if iframe onload doesn't fire within 6 seconds, show success anyway
-  setTimeout(showSuccess, 6000);
-
-  // Allow native form submit to proceed into the iframe
+  // Let form submit natively into the hidden iframe
 });
+
+function showGateSuccess(){
+  if(document.getElementById('gateSuccess').style.display === 'block') return;
+  document.getElementById('gateForm').style.display = 'none';
+  document.getElementById('gateSuccess').style.display = 'block';
+  document.getElementById('successModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
 
 function showGateError(msg){
   const el = document.getElementById('gateError');
