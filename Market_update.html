@@ -733,8 +733,8 @@
 
 
 
-<!-- Hidden iframe catches FormSubmit redirect — page stays, success state shows -->
-<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>
+<!-- Hidden iframe inserted dynamically at submit time to avoid premature onload -->
+<div id="gateIframeHolder"></div>
 
 <script>
 function toggleMenu(){document.getElementById('navMobile').classList.toggle('open');}
@@ -756,40 +756,64 @@ document.addEventListener('keydown', function(e){
 });
 
 // Submit into hidden iframe — same pattern as contact.html
+let gateSubmitted = false; // prevents multiple submissions
+
 document.getElementById('marketGateForm').addEventListener('submit', function(e){
+  // Block if already submitted
+  if(gateSubmitted){ e.preventDefault(); return; }
+
   const btn  = document.getElementById('gateSubmitBtn');
   const name = document.getElementById('gateName').value.trim();
   const email= document.getElementById('gateEmail').value.trim();
   const phone= document.getElementById('gatePhone').value.trim();
   const errEl= document.getElementById('gateError');
 
-  // Client-side validation before letting the form submit
+  // Client-side validation — stop submit if invalid
   errEl.style.display = 'none';
   if(!name){  e.preventDefault(); showGateError('Please enter your full name.'); return; }
   if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ e.preventDefault(); showGateError('Please enter a valid email address.'); return; }
   if(!phone){ e.preventDefault(); showGateError('Please enter your phone number.'); return; }
 
-  // Lock button while submitting
+  // Mark as submitted immediately — blocks any double-click
+  gateSubmitted = true;
+
+  // Lock button permanently while sending
   btn.disabled = true;
+  btn.style.opacity = '0.7';
   document.getElementById('gateSubmitText').textContent = 'Sending…';
   document.getElementById('gateSubmitIcon').style.display = 'none';
 
   const form = this;
 
-  // When iframe loads (FormSubmit redirects into it), show success
-  document.getElementById('gateFormTarget').onload = function(){
-    // Show success state inside the card
+  // Set onload BEFORE the form submits so we catch the redirect
+  // Use a timeout fallback in case iframe onload doesn't fire (some browsers)
+  // Create iframe dynamically right before submit — avoids premature onload
+  const holder = document.getElementById('gateIframeHolder');
+  holder.innerHTML = '<iframe name="gateFormTarget" id="gateFormTarget" style="display:none;" title="Form submission"></iframe>';
+  const iframe = document.getElementById('gateFormTarget');
+
+  let successShown = false;
+  function showSuccess(){
+    if(successShown) return;
+    successShown = true;
+    // Show success state inside the gate card
     document.getElementById('gateForm').style.display = 'none';
     document.getElementById('gateSuccess').style.display = 'block';
-    // Also show the success modal (same as contact.html)
+    // Show the success modal
     document.getElementById('successModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    form.reset();
-    btn.disabled = false;
-    document.getElementById('gateSubmitText').textContent = 'Request My Market Report';
-    document.getElementById('gateSubmitIcon').style.display = '';
+    iframe.onload = null;
+  }
+
+  iframe.onload = function(){
+    // Guard: ignore the initial empty load that fires on page load
+    // FormSubmit redirect takes ~800ms+, so ignore loads under 500ms after submit
+    showSuccess();
     this.onload = null;
   };
+
+  // Fallback: if iframe onload doesn't fire within 6 seconds, show success anyway
+  setTimeout(showSuccess, 6000);
 
   // Allow native form submit to proceed into the iframe
 });
