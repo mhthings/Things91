@@ -608,7 +608,7 @@
       <div class="mu-pulse-cell"><div class="mu-pulse-key">Manhattan Median Sale</div><div class="mu-pulse-val up">$1.24M ▲3% · Forecast $1.29M–$1.31M</div></div>
       <div class="mu-pulse-cell"><div class="mu-pulse-key">Queens Median Sale</div><div class="mu-pulse-val up">$750,000+ (entry point)</div></div>
       <div class="mu-pulse-cell"><div class="mu-pulse-key">Staten Island Median Sale</div><div class="mu-pulse-val up">$725K–$762K ▲2.6–4.1%</div></div>
-      <div class="mu-pulse-cell"><div class="mu-pulse-key">30yr Mortgage Rate</div><div class="mu-pulse-val nt">~6.3% (stabilizing low 6s)</div></div>
+      <div class="mu-pulse-cell"><div class="mu-pulse-key">30yr Mortgage Rate</div><div class="mu-pulse-val nt">6.49% (Freddie Mac, Jun 25)</div></div>
     </div>
   </div>
       <div class="mu-pulse-cell"><div class="mu-pulse-key">Manhattan Median Rent</div><div class="mu-pulse-val up">$6,361 ▲4.5%</div></div>
@@ -630,7 +630,7 @@
   </div>
 
   <!-- INVESTOR INTEL -->
-  <div class="mu-divider anim-3"><span>📈 Investor Intelligence · May 2026</span></div>
+  <div class="mu-divider anim-3"><span>📈 Investor Intelligence · June 2026</span></div>
   <div class="inv-grid anim-3">
 
     <!-- Cap Rates -->
@@ -704,7 +704,7 @@
   </div>
 
   <!-- SELLER INTEL -->
-  <div class="mu-divider anim-3" style="margin-top:36px;"><span>🏷️ Seller Intelligence · Q1 2026</span></div>
+  <div class="mu-divider anim-3" style="margin-top:36px;"><span>🏷️ Seller Intelligence · Q2 2026</span></div>
   <div class="sell-grid anim-3">
 
     <!-- Market Conditions -->
@@ -733,7 +733,7 @@
         <div class="inv-row"><span class="inv-key">Manhattan Overall</span><span class="inv-val nt">110 days (↓9% YoY)</span></div>
         <div class="inv-row"><span class="inv-key">Manhattan Luxury ($4M+)</span><span class="inv-val nt">147 days</span></div>
         <div class="inv-row"><span class="inv-key">Manhattan Supply</span><span class="inv-val nt">7.0 months (5yr low)</span></div>
-        <div class="inv-row"><span class="inv-key">Manhattan Inventory</span><span class="inv-val nt">~6,000 units (5yr low)</span></div>
+        <div class="inv-row"><span class="inv-key">Manhattan Active Inventory</span><span class="inv-val nt">6,761 listings ▼8.5% YoY</span></div>
         <div class="inv-row"><span class="inv-key">FiDi — fastest market</span><span class="inv-val up">87 days avg (↓ from 168)</span></div>
         <div class="inv-row"><span class="inv-key">SI Days on Market</span><span class="inv-val up">40–50 days</span></div>
         <div class="inv-note">Corcoran Q1 2026: "Market rewards accuracy." Correctly priced homes moving fastest since 2018</div>
@@ -749,7 +749,7 @@
       <div class="inv-card-body">
         <div class="inv-row"><span class="inv-key">Sale-to-List &gt;98%</span><span class="inv-val up">Seller controls market</span></div>
         <div class="inv-row"><span class="inv-key">Bed-Stuy sale-to-list</span><span class="inv-val nt">96.4% median</span></div>
-        <div class="inv-row"><span class="inv-key">Manhattan signed contracts</span><span class="inv-val dn">▼11% YoY (Q1 pause)</span></div>
+        <div class="inv-row"><span class="inv-key">Manhattan Signed Contracts</span><span class="inv-val up">1,162 last 30 days ▲10.1% YoY</span></div>
         <div class="inv-row"><span class="inv-key">Manhattan $3M–$5M tier</span><span class="inv-val up">▲76.7% YoY contracts</span></div>
         <div class="inv-row"><span class="inv-key">Manhattan $10M–$20M</span><span class="inv-val up">▲47.4% YoY contracts</span></div>
         <div class="inv-row"><span class="inv-key">BK luxury DOM</span><span class="inv-val nt">147 days — patience req.</span></div>
@@ -1132,7 +1132,7 @@ function runSearch(){
 function renderDashboard(n,d,b){
   // Header
   document.getElementById('dashHood').textContent=n;
-  document.getElementById('dashBorough').textContent=cap(b)+' · May 2026';
+  document.getElementById('dashBorough').textContent=cap(b)+' · June 2026';
   const fc=d.fc;
   const fcB=document.getElementById('fcBadge');
   fcB.className='fc-badge '+fc.d;
