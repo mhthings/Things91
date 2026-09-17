@@ -190,12 +190,11 @@ textarea { resize: vertical; min-height: 140px; }
   display: flex; align-items: center; gap: 7px;
   font-size: 11px; color: var(--muted);
 }
-.footer-fair-housing::before {
-  content: '⊜';
-  color: var(--gold); font-size: 13px;
-}
-@media (max-width: 768px) {
-  .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+/* EHO logo renders as an inline <img> in HTML — no CSS pseudo-element needed */
+.footer-fair-housing img {
+  width: 16px; height: 16px;
+  opacity: 0.6; filter: brightness(1.4);
+  flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
@@ -205,4 +204,5 @@ textarea { resize: vertical; min-height: 140px; }
   main { padding: 56px 20px 80px; }
   footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 24px; }
   .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
 }
