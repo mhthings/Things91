@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Redirect /index.html to bare root to prevent Google duplicate-canonical issue -->
+  <!-- Redirect /index.html → bare root to prevent Google duplicate-canonical -->
   <script>if(window.location.pathname==='/index.html')window.location.replace('https://www.mhaquerealtor.com/');</script>
 
   <!-- ── Primary SEO ── -->
@@ -552,8 +552,34 @@
     /* ══════════════════════════════
        MOBILE
     ══════════════════════════════ */
+    /* Mobile hero agent photo — hidden on desktop, shown on mobile */
+    .hero-mobile-agent {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .hero-mobile-photo {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 2px solid var(--gold);
+      object-fit: cover; object-position: center top;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(184,155,94,0.15);
+    }
+    .hero-mobile-name {
+      font-family: var(--serif-font);
+      font-size: 15px; font-weight: 600; color: #fff;
+      line-height: 1.2;
+    }
+    .hero-mobile-title {
+      font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-top: 2px;
+    }
+
     @media (max-width: 900px) {
       .hero-content { padding: 80px 24px 140px; }
+      .hero-mobile-agent { display: flex; }
       .agent-card { display: none; }
       .carousel-section { height: 420px; }
       .slide-content { padding: 0 28px; }
@@ -629,10 +655,18 @@
 
   <!-- Text content -->
   <div class="hero-content">
+    <!-- Mobile-only agent photo shown above headline -->
+    <div class="hero-mobile-agent">
+      <img class="hero-mobile-photo" src="Final Gama-36.jpg" alt="Monjurul Haque — NYC Real Estate Broker">
+      <div>
+        <div class="hero-mobile-name">Monjurul Haque</div>
+        <div class="hero-mobile-title">Licensed Associate Broker</div>
+      </div>
+    </div>
     <div class="hero-eyebrow">NYC Real Estate Broker</div>
     <h1 class="hero-headline">Your NYC<br>Real Estate<br><em>Advantage.</em></h1>
     <p class="hero-sub">
-      Strategic marketing, data-driven pricing, and relentless hustle across all five New York City boroughs.
+      Strategic marketing, data-driven pricing, and relentless hustle across NYC.
     </p>
     <div class="hero-actions">
       <a href="listings.html" class="btn btn-gold">View Listings</a>
@@ -711,7 +745,7 @@
   </div>
   <div class="strip-stat anim-4">
     <div class="strip-num">5</div>
-    <div class="strip-label">NYC Boroughs</div>
+    <div class="strip-label">NYC Markets</div>
   </div>
   <div class="strip-stat anim-4">
     <div class="strip-num">100%</div>
